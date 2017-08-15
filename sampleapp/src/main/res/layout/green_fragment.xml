@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/full_container"
     android:clickable="true"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@android:color/holo_green_dark"
+    android:background="@android:color/holo_red_dark"
     android:layout_height="match_parent">
 
     <TextView
@@ -14,18 +15,11 @@
 
     <Button
         android:layout_below="@id/stack_num"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/deeper"
+        android:id="@+id/deeper_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go Deeper"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/full_container">
-
-    </FrameLayout>
 
 </RelativeLayout>

@@ -11,6 +11,8 @@ import com.joeracosta.simplefragments.databinding.SampleMapActivityBinding;
 
 public class SampleMapActivity extends FragmentMapActivity {
 
+    public static final String STACK_LEVEL_KEY = "STACK_LEVEL";
+
     private static final String BLUE_FRAGMENT_TAG = "PURPLE_TAG";
     private static final String GREEN_FRAGMENT_TAG = "GREEN_TAG";
 
@@ -31,16 +33,19 @@ public class SampleMapActivity extends FragmentMapActivity {
         mBinding.blueMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFragmentInMap(BlueStackFragment.newInstance(), R.id.fragment_container, BLUE_FRAGMENT_TAG);
+                showFragmentInMap(BlueStackFragment.newInstance(1), R.id.fragment_container, BLUE_FRAGMENT_TAG);
             }
         });
 
         mBinding.greenMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFragmentInMap(GreenStackFragment.newInstance(), R.id.fragment_container, GREEN_FRAGMENT_TAG);
+                showFragmentInMap(GreenStackFragment.newInstance(1), R.id.fragment_container, GREEN_FRAGMENT_TAG);
             }
         });
+
+        //start at green
+        mBinding.greenMenu.performClick();
     }
 
 }

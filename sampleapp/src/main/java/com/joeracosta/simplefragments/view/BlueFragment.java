@@ -9,20 +9,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.joeracosta.library.activity.FragmentStackFragment;
+import com.joeracosta.library.activity.SimpleFragment;
 import com.joeracosta.simplefragments.R;
 
 /**
  * Created by Joe on 8/14/2017.
  */
 
-public class BlueStackFragment extends FragmentStackFragment {
+public class BlueFragment extends SimpleFragment {
 
     private int stackLevel;
 
-    public static BlueStackFragment newInstance(int stackLevel){
+    public static BlueFragment newInstance(int stackLevel){
         Bundle args = new Bundle();
         args.putInt(SampleMapActivity.STACK_LEVEL_KEY, stackLevel);
-        BlueStackFragment fragment = new BlueStackFragment();
+        BlueFragment fragment = new BlueFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +47,7 @@ public class BlueStackFragment extends FragmentStackFragment {
         ((Button)view.findViewById(R.id.deeper)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragmentToStack(BlueFragment.newInstance(stackLevel+1), R.id.full_container, null, null);
+                ((FragmentStackFragment) getParentFragment()).addFragmentToStack(BlueFragment.newInstance(stackLevel+1), R.id.full_container, null, null);
             }
         });
 
