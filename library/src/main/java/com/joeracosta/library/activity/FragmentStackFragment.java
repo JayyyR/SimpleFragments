@@ -1,6 +1,5 @@
 package com.joeracosta.library.activity;
 
-import android.arch.lifecycle.LifecycleFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
  * Created by Joe on 8/14/2017.
  */
 
-public abstract class FragmentStackFragment extends LifecycleFragment {
+public abstract class FragmentStackFragment extends SimpleFragment {
 
     FragmentManager mFragmentManager;
 

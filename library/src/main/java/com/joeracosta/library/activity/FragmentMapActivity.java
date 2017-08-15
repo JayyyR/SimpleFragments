@@ -43,6 +43,8 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
             fragmentTransaction.hide(mCurrentFragment);
         }
 
+        mCurrentFragment = fragmentToAdd;
+
         if (fragmentToAdd.isAdded()){
             fragmentTransaction.show(fragmentToAdd);
         } else {
