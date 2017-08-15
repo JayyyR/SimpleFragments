@@ -21,7 +21,7 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
         mFragmentManager = getSupportFragmentManager();
     }
 
-    protected void addFragmentToStack(Fragment fragmentToAdd, int fragmentContainerId,
+    public void addFragmentToStack(Fragment fragmentToAdd, int fragmentContainerId,
                                       @Nullable String tag, @Nullable String backstackTag){
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();

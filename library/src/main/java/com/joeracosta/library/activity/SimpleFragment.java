@@ -19,6 +19,24 @@ public abstract class SimpleFragment extends LifecycleFragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (!isHidden()) {
+            onShown();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (!isHidden()) {
+            onHidden();
+        }
+    }
+
     /**
      * Called when the fragment is shown on the screen
      */

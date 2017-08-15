@@ -29,7 +29,7 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
      * @param tag tag of the fragment transaction. If you want to show the same fragment that's
      *            already added, just make sure the tag is correct and it won't use the new instance
      */
-    protected void showFragmentInMap(Fragment fragmentToAdd, int fragmentContainerId,
+    public void showFragmentInMap(Fragment fragmentToAdd, int fragmentContainerId,
                                      String tag){
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();

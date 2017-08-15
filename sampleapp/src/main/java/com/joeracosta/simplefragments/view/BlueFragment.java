@@ -41,10 +41,10 @@ public class BlueFragment extends SimpleFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.blue_stack_fragment, container, false);
+        View view = inflater.inflate(R.layout.blue_fragment, container, false);
         ((TextView)view.findViewById(R.id.stack_num)).setText(Integer.toString(stackLevel));
 
-        ((Button)view.findViewById(R.id.deeper)).setOnClickListener(new View.OnClickListener() {
+        ((Button)view.findViewById(R.id.deeper_again)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((FragmentStackFragment) getParentFragment()).addFragmentToStack(BlueFragment.newInstance(stackLevel+1), R.id.full_container, null, null);
