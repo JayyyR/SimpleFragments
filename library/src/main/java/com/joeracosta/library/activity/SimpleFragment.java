@@ -50,4 +50,12 @@ public abstract class SimpleFragment extends LifecycleFragment {
     public void onHidden(){
 
     }
+
+    /**
+     * Called when back is pressed when using this Fragment in a FragmentMapActivity or FragmentStackActivity
+     * @return whether or not the backpress was handled
+     */
+    public boolean onSimpleBackPressed(){
+        return false;
+    }
 }

@@ -3,7 +3,6 @@ package com.joeracosta.library.activity;
 import android.arch.lifecycle.LifecycleActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -14,7 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 public abstract class FragmentMapActivity extends LifecycleActivity {
 
     FragmentManager mFragmentManager;
-    Fragment mCurrentFragment;
+    SimpleFragment mCurrentFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,12 +28,12 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
      * @param tag tag of the fragment transaction. If you want to show the same fragment that's
      *            already added, just make sure the tag is correct and it won't use the new instance
      */
-    public void showFragmentInMap(Fragment fragmentToAdd, int fragmentContainerId,
+    public void showFragmentInMap(SimpleFragment fragmentToAdd, int fragmentContainerId,
                                      String tag){
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
-        Fragment existingFragment = mFragmentManager.findFragmentByTag(tag);
+        SimpleFragment existingFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(tag);
         if (existingFragment != null){
             fragmentToAdd = existingFragment;
         }
@@ -52,5 +51,12 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
         }
 
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mCurrentFragment.onSimpleBackPressed()){
+            super.onBackPressed();
+        }
     }
 }

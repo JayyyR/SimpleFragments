@@ -12,20 +12,31 @@ import android.support.v4.app.FragmentTransaction;
 
 public abstract class FragmentStackFragment extends SimpleFragment {
 
-    FragmentManager mFragmentManager;
+    FragmentManager mChildFragmentManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragmentManager = getChildFragmentManager();
+        mChildFragmentManager = getChildFragmentManager();
     }
 
     public void addFragmentToStack(Fragment fragmentToAdd, int fragmentContainerId,
                                       @Nullable String tag, @Nullable String backstackTag){
 
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = mChildFragmentManager.beginTransaction();
         fragmentTransaction.replace(fragmentContainerId, fragmentToAdd, tag);
         fragmentTransaction.addToBackStack(backstackTag);
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+
+    @Override
+    public boolean onSimpleBackPressed() {
+        if (mChildFragmentManager.getBackStackEntryCount() > 0){
+            mChildFragmentManager.popBackStackImmediate();
+            return true;
+        }
+
+        return false;
     }
 }
