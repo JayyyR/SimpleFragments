@@ -1,1 +1,1 @@
-include ':samplemapapp', ':library'
+include ':samplemapapp', ':library', ':samplestackapp'
