@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.util.Stack;
+
 /**
  * Created by Joe on 8/14/2017.
  */
@@ -14,6 +16,7 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
 
     FragmentManager mFragmentManager;
     SimpleFragment mCurrentFragment;
+    Stack<String> mBackstackTags = new Stack<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,8 +25,13 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
     }
 
     public void addFragmentToStack(SimpleFragment fragmentToAdd, int fragmentContainerId,
-                                      @Nullable String tag, @Nullable String backstackTag){
+                                   @Nullable String tag, @Nullable String backstackTag) {
 
+        if (tag == null) {
+            tag = String.valueOf(fragmentToAdd.hashCode());
+        }
+
+        mBackstackTags.add(tag);
         mCurrentFragment = fragmentToAdd;
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(fragmentContainerId, fragmentToAdd, tag);
@@ -33,12 +41,13 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
 
     @Override
     public void onBackPressed() {
-        if (mCurrentFragment.onSimpleBackPressed()){
+        if (mCurrentFragment.onSimpleBackPressed()) {
             return;
         }
-        if (mFragmentManager.getBackStackEntryCount() > 0){
-             mFragmentManager.popBackStackImmediate();
-            //todo update current fragment
+        if (mFragmentManager.getBackStackEntryCount() > 0) {
+            mFragmentManager.popBackStackImmediate();
+            mBackstackTags.pop();
+            mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
         } else {
             super.onBackPressed();
         }
