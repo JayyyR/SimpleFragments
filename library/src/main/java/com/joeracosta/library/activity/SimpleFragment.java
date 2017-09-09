@@ -81,14 +81,12 @@ public abstract class SimpleFragment extends LifecycleFragment {
      * Called when the fragment is shown on the screen
      */
     public void onShown(){
-        System.out.print("");
     }
 
     /**
      * Called when the fragment is hidden on the screen
      */
     public void onHidden(){
-        System.out.print("");
     }
 
     /**

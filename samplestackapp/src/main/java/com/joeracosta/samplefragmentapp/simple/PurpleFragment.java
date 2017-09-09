@@ -2,6 +2,7 @@ package com.joeracosta.samplefragmentapp.simple;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,5 +62,17 @@ public class PurpleFragment extends SimpleFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onShown() {
+        super.onShown();
+        Log.d("visibility", "purple fragment " + stackLevel + " shown");
+    }
+
+    @Override
+    public void onHidden() {
+        super.onHidden();
+        Log.d("visibility", "purple fragment " + stackLevel + " hidden");
     }
 }

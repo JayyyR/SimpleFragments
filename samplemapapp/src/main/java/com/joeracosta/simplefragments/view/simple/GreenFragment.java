@@ -2,6 +2,7 @@ package com.joeracosta.simplefragments.view.simple;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,18 @@ public class GreenFragment extends SimpleFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onShown() {
+        super.onShown();
+        Log.d("visibility", "green fragment " + stackLevel + " shown");
+    }
+
+    @Override
+    public void onHidden() {
+        super.onHidden();
+        Log.d("visibility", "green fragment " + stackLevel + " hidden");
     }
 
 }
