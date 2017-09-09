@@ -1,6 +1,8 @@
 package com.joeracosta.library.activity;
 
 import android.arch.lifecycle.LifecycleFragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 /**
  * Created by Joe on 8/14/2017.
@@ -9,10 +11,39 @@ import android.arch.lifecycle.LifecycleFragment;
 
 public abstract class SimpleFragment extends LifecycleFragment {
 
+    private static final String FOREFRONT_TAG = "com.joeracosta.at_forefront_tag";
+
     private boolean atForefront;
 
     public void setAtForefront(boolean atForefront){
         this.atForefront = atForefront;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null){
+            atForefront = savedInstanceState.getBoolean(FOREFRONT_TAG, false);
+        }
+
+        if (getParentFragment() != null){
+            if (!(getParentFragment() instanceof FragmentStackFragment) &&
+                    !(getParentFragment() instanceof FragmentMapFragment)){
+                throw new RuntimeException("A SimpleFragment must have a FragmentStackFragment/Activity or FragmentMapFragment/Activity as a parent!");
+            }
+        } else {
+            if (!(getActivity() instanceof FragmentMapActivity) &&
+                    !(getActivity() instanceof FragmentStackActivity)){
+                throw new RuntimeException("A SimpleFragment must have a FragmentStackFragment/Activity or FragmentMapFragment/Activity as a parent!");
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(FOREFRONT_TAG, atForefront);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
