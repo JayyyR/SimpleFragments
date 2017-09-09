@@ -2,7 +2,6 @@ package com.joeracosta.library.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -13,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 public abstract class FragmentStackFragment extends SimpleFragment {
 
     FragmentManager mChildFragmentManager;
+    SimpleFragment mCurrentFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,9 +20,10 @@ public abstract class FragmentStackFragment extends SimpleFragment {
         mChildFragmentManager = getChildFragmentManager();
     }
 
-    public void addFragmentToStack(Fragment fragmentToAdd, int fragmentContainerId,
+    public void addFragmentToStack(SimpleFragment fragmentToAdd, int fragmentContainerId,
                                       @Nullable String tag, @Nullable String backstackTag){
 
+        mCurrentFragment = fragmentToAdd;
         FragmentTransaction fragmentTransaction = mChildFragmentManager.beginTransaction();
         fragmentTransaction.replace(fragmentContainerId, fragmentToAdd, tag);
         fragmentTransaction.addToBackStack(backstackTag);
@@ -32,8 +33,12 @@ public abstract class FragmentStackFragment extends SimpleFragment {
 
     @Override
     public boolean onSimpleBackPressed() {
+        if (mCurrentFragment.onSimpleBackPressed()){
+            return true;
+        }
         if (mChildFragmentManager.getBackStackEntryCount() > 0){
             mChildFragmentManager.popBackStackImmediate();
+            //todo update current fragment
             return true;
         }
 
