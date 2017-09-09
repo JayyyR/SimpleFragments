@@ -25,10 +25,6 @@ public class SampleMapActivity extends FragmentMapActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         findViewById(R.id.blue_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
