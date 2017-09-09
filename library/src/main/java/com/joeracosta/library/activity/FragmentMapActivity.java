@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentTransaction;
  * Created by Joe on 8/14/2017.
  */
 
+/**
+ * Meant to be a shell map that contains SimpleFragments.
+ */
 public abstract class FragmentMapActivity extends LifecycleActivity {
 
     private static final String CURRENT_FRAG_TAG = "com.joeracosta.current_frag_tag_activity_map";
@@ -34,6 +37,11 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(CURRENT_FRAG_TAG, mCurrentFragmentTag);
         super.onSaveInstanceState(outState);
+    }
+
+
+    public boolean hasFragments(){
+        return mFragmentManager.getFragments().size() > 0;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.joeracosta.simplefragments.view;
+package com.joeracosta.simplefragments.view.stack;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,34 +8,44 @@ import android.view.ViewGroup;
 
 import com.joeracosta.library.activity.FragmentStackFragment;
 import com.joeracosta.simplefragments.R;
+import com.joeracosta.simplefragments.view.map.SampleMapActivity;
+import com.joeracosta.simplefragments.view.simple.BlueFragment;
 
 /**
  * Created by Joe on 8/14/2017.
  */
 
-public class GreenStackFragment extends FragmentStackFragment {
+public class RedStackFragment extends FragmentStackFragment {
 
-    public static GreenStackFragment newInstance(int stackLevel){
+    private int stackLevel;
+
+    public static RedStackFragment newInstance(int stackLevel){
         Bundle args = new Bundle();
         args.putInt(SampleMapActivity.STACK_LEVEL_KEY, stackLevel);
-        GreenStackFragment fragment = new GreenStackFragment();
+        RedStackFragment fragment = new RedStackFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    private int stackLevel;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Bundle args = getArguments();
 
         if (args != null){
             stackLevel = args.getInt(SampleMapActivity.STACK_LEVEL_KEY);
         }
 
-        addFragmentToStack(GreenFragment.newInstance(stackLevel), R.id.full_container, null, null);
+        //if we haven't recreated a state that already had fragments, start at one blue frag
+        if (!hasFragments()) {
+            addFragmentToStack(BlueFragment.newInstance(stackLevel), R.id.full_container, null, null);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SampleMapActivity.STACK_LEVEL_KEY, stackLevel);
+        super.onSaveInstanceState(outState);
     }
 
     @Nullable

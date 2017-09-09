@@ -34,6 +34,11 @@ public abstract class FragmentMapFragment extends SimpleFragment {
         super.onSaveInstanceState(outState);
     }
 
+
+    public boolean hasFragments(){
+        return mChildFragmentManager.getFragments().size() > 0;
+    }
+
     /**
      * Show a fragment in the map
      * @param fragmentToAdd New Instance of the Fragment you want

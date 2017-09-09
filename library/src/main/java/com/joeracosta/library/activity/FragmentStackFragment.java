@@ -11,6 +11,11 @@ import java.util.Stack;
  * Created by Joe on 8/14/2017.
  */
 
+/**
+ * Meant to be a shell stack fragment that has a stack of SimpleFragments. Back presses etc are handled for you. If there is only one fragment in this stack,
+ * and you press back, instead of being popped, this fragment's parent will get the back press. So you shouldn't inflate a layout here that needs to be visible to the user.
+ * There should always be at least one SimpleFragment in the stack
+ */
 public abstract class FragmentStackFragment extends SimpleFragment {
 
     private static final String BACKSTAG_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_fragment";
@@ -53,6 +58,9 @@ public abstract class FragmentStackFragment extends SimpleFragment {
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    public boolean hasFragments(){
+        return mChildFragmentManager.getBackStackEntryCount() > 0;
+    }
 
     @Override
     public boolean onSimpleBackPressed() {

@@ -1,4 +1,4 @@
-package com.joeracosta.simplefragments.view;
+package com.joeracosta.simplefragments.view.simple;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.joeracosta.library.activity.FragmentStackFragment;
 import com.joeracosta.library.activity.SimpleFragment;
 import com.joeracosta.simplefragments.R;
+import com.joeracosta.simplefragments.view.map.SampleMapActivity;
 
 /**
  * Created by Joe on 8/14/2017.
@@ -37,6 +38,13 @@ public class BlueFragment extends SimpleFragment {
             stackLevel = args.getInt(SampleMapActivity.STACK_LEVEL_KEY);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SampleMapActivity.STACK_LEVEL_KEY, stackLevel);
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Nullable
     @Override

@@ -1,28 +1,26 @@
-package com.joeracosta.simplefragments.view;
+package com.joeracosta.simplefragments.view.map;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toolbar;
 
 import com.joeracosta.library.activity.FragmentMapActivity;
 import com.joeracosta.simplefragments.R;
-import com.joeracosta.simplefragments.databinding.SampleMapActivityBinding;
+import com.joeracosta.simplefragments.view.stack.BlueStackFragment;
+import com.joeracosta.simplefragments.view.stack.GreenStackFragment;
 
 public class SampleMapActivity extends FragmentMapActivity {
 
     public static final String STACK_LEVEL_KEY = "STACK_LEVEL";
-
     private static final String BLUE_FRAGMENT_TAG = "PURPLE_TAG";
     private static final String GREEN_FRAGMENT_TAG = "GREEN_TAG";
-
-    SampleMapActivityBinding mBinding;
+    private static final String RED_FRAGMENT_TAG = "RED_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.sample_map_activity);
+        setContentView(R.layout.sample_map_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
@@ -30,22 +28,31 @@ public class SampleMapActivity extends FragmentMapActivity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mBinding.blueMenu.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.blue_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFragmentInMap(BlueStackFragment.newInstance(1), R.id.fragment_container, BLUE_FRAGMENT_TAG);
             }
         });
 
-        mBinding.greenMenu.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.green_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFragmentInMap(GreenStackFragment.newInstance(1), R.id.fragment_container, GREEN_FRAGMENT_TAG);
             }
         });
 
-        //start at green
-        //mBinding.greenMenu.performClick();
+        findViewById(R.id.red_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFragmentInMap(GreenStackFragment.newInstance(1), R.id.fragment_container, RED_FRAGMENT_TAG);
+            }
+        });
+
+        //if we haven't recreated a state that already had fragments, start at green
+        if (!hasFragments()) {
+            findViewById(R.id.green_menu).performClick();
+        }
     }
 
 }
