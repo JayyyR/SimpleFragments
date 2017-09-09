@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.joeracosta.library.activity.FragmentStackFragment;
 import com.joeracosta.simplefragments.R;
 import com.joeracosta.simplefragments.view.map.SampleMapActivity;
-import com.joeracosta.simplefragments.view.simple.BlueFragment;
+import com.joeracosta.simplefragments.view.simple.RedFragment;
 
 /**
  * Created by Joe on 8/14/2017.
@@ -36,9 +36,9 @@ public class RedStackFragment extends FragmentStackFragment {
             stackLevel = args.getInt(SampleMapActivity.STACK_LEVEL_KEY);
         }
 
-        //if we haven't recreated a state that already had fragments, start at one blue frag
+        //if we haven't recreated a state that already had fragments, start at one red frag
         if (!hasFragments()) {
-            addFragmentToStack(BlueFragment.newInstance(stackLevel), R.id.full_container, null, null);
+            addFragmentToStack(RedFragment.newInstance(stackLevel), R.id.full_container, null, null);
         }
     }
 

@@ -8,6 +8,7 @@ import com.joeracosta.library.activity.FragmentMapActivity;
 import com.joeracosta.simplefragments.R;
 import com.joeracosta.simplefragments.view.stack.BlueStackFragment;
 import com.joeracosta.simplefragments.view.stack.GreenStackFragment;
+import com.joeracosta.simplefragments.view.stack.RedStackFragment;
 
 public class SampleMapActivity extends FragmentMapActivity {
 
@@ -45,7 +46,7 @@ public class SampleMapActivity extends FragmentMapActivity {
         findViewById(R.id.red_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFragmentInMap(GreenStackFragment.newInstance(1), R.id.fragment_container, RED_FRAGMENT_TAG);
+                showFragmentInMap(RedStackFragment.newInstance(1), R.id.fragment_container, RED_FRAGMENT_TAG);
             }
         });
 
