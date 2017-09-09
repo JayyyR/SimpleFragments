@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">SimpleFragments</string>
-    <string name="title_activity_sample_map_activitsy">SampleMapActivitsy</string>
+    <string name="app_name">SimpleFragmentsMapSample</string>
+    <string name="title_activity_sample_map_activity">SampleMapActivity</string>
 </resources>

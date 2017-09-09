@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.joeracosta.library.activity.FragmentStackActivity;
 import com.joeracosta.library.activity.SimpleFragment;
 import com.joeracosta.samplefragmentapp.R;
+import com.joeracosta.samplefragmentapp.map.MapFragment;
 import com.joeracosta.samplefragmentapp.stack.SampleStackActivity;
 
 /**
@@ -57,7 +58,11 @@ public class PurpleFragment extends SimpleFragment {
         ((Button)view.findViewById(R.id.deeper_again)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((FragmentStackActivity) getActivity()).addFragmentToStack(PurpleFragment.newInstance(stackLevel+1), R.id.fragment_container, null, null);
+                if (stackLevel > 4){
+                    ((FragmentStackActivity) getActivity()).addFragmentToStack(MapFragment.newInstance(), R.id.fragment_container, null, null);
+                } else {
+                    ((FragmentStackActivity) getActivity()).addFragmentToStack(PurpleFragment.newInstance(stackLevel + 1), R.id.fragment_container, null, null);
+                }
             }
         });
 

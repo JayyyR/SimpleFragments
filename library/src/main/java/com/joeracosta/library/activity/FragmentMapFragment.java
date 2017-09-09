@@ -60,6 +60,7 @@ public abstract class FragmentMapFragment extends SimpleFragment {
             fragmentTransaction.hide(mCurrentFragment);
         }
 
+        mCurrentFragmentTag = tag;
         mCurrentFragment = fragmentToAdd;
 
         if (fragmentToAdd.isAdded()){
