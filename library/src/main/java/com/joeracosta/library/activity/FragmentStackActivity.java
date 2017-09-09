@@ -14,6 +14,8 @@ import java.util.Stack;
 
 public abstract class FragmentStackActivity extends LifecycleActivity {
 
+    private static final String BACKSTAG_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_activity";
+
     FragmentManager mFragmentManager;
     SimpleFragment mCurrentFragment;
     Stack<String> mBackstackTags = new Stack<>();
@@ -22,6 +24,19 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
+
+        if (savedInstanceState != null && savedInstanceState.getSerializable(BACKSTAG_FRAG_TAGS) != null){
+            mBackstackTags = (Stack<String>) savedInstanceState.getSerializable(BACKSTAG_FRAG_TAGS);
+            if (!mBackstackTags.isEmpty()){
+                mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(BACKSTAG_FRAG_TAGS, mBackstackTags);
+        super.onSaveInstanceState(outState);
     }
 
     public void addFragmentToStack(SimpleFragment fragmentToAdd, int fragmentContainerId,
@@ -45,9 +60,13 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
             return;
         }
         if (mFragmentManager.getBackStackEntryCount() > 0) {
-            mFragmentManager.popBackStackImmediate();
             mBackstackTags.pop();
-            mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
+            if (!mBackstackTags.isEmpty()) {
+                mFragmentManager.popBackStackImmediate();
+                mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
+            } else {
+                super.onBackPressed();
+            }
         } else {
             super.onBackPressed();
         }

@@ -13,6 +13,8 @@ import java.util.Stack;
 
 public abstract class FragmentStackFragment extends SimpleFragment {
 
+    private static final String BACKSTAG_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_fragment";
+
     FragmentManager mChildFragmentManager;
     SimpleFragment mCurrentFragment;
     Stack<String> mBackstackTags = new Stack<>();
@@ -21,7 +23,20 @@ public abstract class FragmentStackFragment extends SimpleFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChildFragmentManager = getChildFragmentManager();
+        if (savedInstanceState != null && savedInstanceState.getSerializable(BACKSTAG_FRAG_TAGS) != null){
+            mBackstackTags = (Stack<String>) savedInstanceState.getSerializable(BACKSTAG_FRAG_TAGS);
+            if (!mBackstackTags.isEmpty()){
+                mCurrentFragment = (SimpleFragment) mChildFragmentManager.findFragmentByTag(mBackstackTags.peek());
+            }
+        }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(BACKSTAG_FRAG_TAGS, mBackstackTags);
+        super.onSaveInstanceState(outState);
+    }
+
 
     public void addFragmentToStack(SimpleFragment fragmentToAdd, int fragmentContainerId,
                                       @Nullable String tag, @Nullable String backstackTag){
@@ -45,10 +60,12 @@ public abstract class FragmentStackFragment extends SimpleFragment {
             return true;
         }
         if (mChildFragmentManager.getBackStackEntryCount() > 0){
-            mChildFragmentManager.popBackStackImmediate();
             mBackstackTags.pop();
-            mCurrentFragment = (SimpleFragment) mChildFragmentManager.findFragmentByTag(mBackstackTags.peek());
-            return true;
+            if (!mBackstackTags.isEmpty()) {
+                mChildFragmentManager.popBackStackImmediate();
+                mCurrentFragment = (SimpleFragment) mChildFragmentManager.findFragmentByTag(mBackstackTags.peek());
+                return true;
+            }
         }
 
         return false;

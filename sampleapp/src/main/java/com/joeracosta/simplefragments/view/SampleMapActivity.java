@@ -45,7 +45,7 @@ public class SampleMapActivity extends FragmentMapActivity {
         });
 
         //start at green
-        mBinding.greenMenu.performClick();
+        //mBinding.greenMenu.performClick();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.joeracosta.library.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,16 +10,28 @@ import android.support.v4.app.FragmentTransaction;
  * Created by Joe on 9/8/2017.
  */
 
-public class FragmentMapFragment extends SimpleFragment {
+public abstract class FragmentMapFragment extends SimpleFragment {
 
+    private static final String CURRENT_FRAG_TAG = "com.joeracosta.current_frag_tag_fragment_map";
 
     FragmentManager mChildFragmentManager;
     SimpleFragment mCurrentFragment;
+    private String mCurrentFragmentTag;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChildFragmentManager = getChildFragmentManager();
+        if (savedInstanceState != null && savedInstanceState.getString(CURRENT_FRAG_TAG) != null){
+            mCurrentFragmentTag = savedInstanceState.getString(CURRENT_FRAG_TAG);
+            mCurrentFragment = (SimpleFragment) mChildFragmentManager.findFragmentByTag(mCurrentFragmentTag);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(CURRENT_FRAG_TAG, mCurrentFragmentTag);
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -29,7 +42,7 @@ public class FragmentMapFragment extends SimpleFragment {
      *            already added, just make sure the tag is correct and it won't use the new instance
      */
     public void showFragmentInMap(SimpleFragment fragmentToAdd, int fragmentContainerId,
-                                  String tag){
+                                  @NonNull String tag){
 
         FragmentTransaction fragmentTransaction = mChildFragmentManager.beginTransaction();
 
