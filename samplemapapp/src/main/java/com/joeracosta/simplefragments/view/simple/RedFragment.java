@@ -58,14 +58,4 @@ public class RedFragment extends SimpleFragment {
 
         return view;
     }
-
-    @Override
-    public void onShown() {
-        System.out.print("");
-    }
-
-    @Override
-    public void onHidden() {
-        System.out.print("");
-    }
 }

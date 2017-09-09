@@ -65,6 +65,7 @@ public abstract class FragmentMapFragment extends SimpleFragment {
         if (fragmentToAdd.isAdded()){
             fragmentTransaction.show(fragmentToAdd);
         } else {
+            fragmentToAdd.setAtForefront(true);
             fragmentTransaction.add(fragmentContainerId, fragmentToAdd, tag);
         }
 
@@ -74,6 +75,21 @@ public abstract class FragmentMapFragment extends SimpleFragment {
     @Override
     public boolean onSimpleBackPressed() {
         return mCurrentFragment.onSimpleBackPressed();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (mCurrentFragment != null){
+            if (hidden){
+                mCurrentFragment.setAtForefront(false);
+                mCurrentFragment.onHidden();
+            } else {
+                mCurrentFragment.setAtForefront(true);
+                mCurrentFragment.onShown();
+            }
+        }
     }
 
 }

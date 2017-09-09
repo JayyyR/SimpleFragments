@@ -9,9 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 
 /**
  * Created by Joe on 8/14/2017.
- */
-
-/**
  * Meant to be a shell map that contains SimpleFragments.
  */
 public abstract class FragmentMapActivity extends LifecycleActivity {
@@ -71,6 +68,7 @@ public abstract class FragmentMapActivity extends LifecycleActivity {
         if (fragmentToAdd.isAdded()){
             fragmentTransaction.show(fragmentToAdd);
         } else {
+            fragmentToAdd.setAtForefront(true);
             fragmentTransaction.add(fragmentContainerId, fragmentToAdd, tag);
         }
 

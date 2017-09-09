@@ -53,14 +53,4 @@ public class BlueStackFragment extends FragmentStackFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.stack_fragment, container, false);
     }
-
-    @Override
-    public void onShown() {
-        System.out.print("");
-    }
-
-    @Override
-    public void onHidden() {
-        System.out.print("");
-    }
 }

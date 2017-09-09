@@ -10,9 +10,6 @@ import java.util.Stack;
 
 /**
  * Created by Joe on 8/14/2017.
- */
-
-/**
  * Meant to be a shell stack activity that has a stack of SimpleFragments. Back presses etc are handled for you. If there is only one fragment in this stack,
  * and you press back, instead of being popped, this activity will get the back press. So you shouldn't inflate a layout here that needs to be visible to the user.
  * There should always be at least one SimpleFragment in the stack.
@@ -51,8 +48,13 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
             tag = String.valueOf(fragmentToAdd.hashCode());
         }
 
+        if (mCurrentFragment != null){
+            mCurrentFragment.setAtForefront(false);
+            mCurrentFragment.onHidden();
+        }
         mBackstackTags.add(tag);
         mCurrentFragment = fragmentToAdd;
+        mCurrentFragment.setAtForefront(true);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(fragmentContainerId, fragmentToAdd, tag);
         fragmentTransaction.addToBackStack(backstackTag);

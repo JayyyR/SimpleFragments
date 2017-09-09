@@ -4,17 +4,26 @@ import android.arch.lifecycle.LifecycleFragment;
 
 /**
  * Created by Joe on 8/14/2017.
+ * Simple Fragment. Must be used in a FragmentStackFragment/Activity or FragmentMapFragment/Activity
  */
 
 public abstract class SimpleFragment extends LifecycleFragment {
+
+    private boolean atForefront;
+
+    public void setAtForefront(boolean atForefront){
+        this.atForefront = atForefront;
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
         if (hidden){
+            atForefront = false;
             onHidden();
         } else {
+            atForefront = true;
             onShown();
         }
     }
@@ -23,7 +32,7 @@ public abstract class SimpleFragment extends LifecycleFragment {
     public void onStart() {
         super.onStart();
 
-        if (!isHidden()) {
+        if (atForefront) { //only use onStart for when app is coming back from background
             onShown();
         }
     }
@@ -32,7 +41,7 @@ public abstract class SimpleFragment extends LifecycleFragment {
     public void onStop() {
         super.onStop();
 
-        if (!isHidden()) {
+        if (atForefront) { //only use onStop for when app is backgrounding
             onHidden();
         }
     }
@@ -41,14 +50,14 @@ public abstract class SimpleFragment extends LifecycleFragment {
      * Called when the fragment is shown on the screen
      */
     public void onShown(){
-
+        System.out.print("");
     }
 
     /**
      * Called when the fragment is hidden on the screen
      */
     public void onHidden(){
-
+        System.out.print("");
     }
 
     /**
