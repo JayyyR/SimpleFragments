@@ -76,7 +76,7 @@ public abstract class FragmentStackActivity extends LifecycleActivity {
                 mFragmentManager.popBackStackImmediate();
                 mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
             } else {
-                super.onBackPressed();
+                finish();
             }
         } else {
             super.onBackPressed();
