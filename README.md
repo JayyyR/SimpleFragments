@@ -2,7 +2,21 @@
 SimpleFragments is a library aimed at making flexible navigation easy on Android while removing unneccessary lifecycle complications. The library makes it easy to create map-based navigation, stack-based navigation or a combination of both. Back presses and rotation are handled.
 
 # Download
-Not available yet
+Add JitPack repo in your root build.gradle at the end of repositories:
+```java
+allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+Add the dependency:
+```java
+dependencies {
+	        compile 'com.github.JayyyR:SimpleFragments:v0.1-alpha'
+	}
+```
 
 # Usage
 The library provides 4 main classes for you to utlize: The FragmentMapActivity, the FragmentMapFragment, the FragmentStackActivity, and the FragmentStackFragment. These are all designed to be "shell" components for you to put your fragments into. The fifth class is SimpleFragment. This class extends the Android Fragment and is what needs to be used for all your Fragments in the app. It provides a few convenience methods that will make your life easier.
