@@ -58,16 +58,25 @@ Your FragmentStackActivities and FragmentStackFragments are always meant to be h
 
 So what do you add to your stacks and maps? SimpleFragments! The `SimpleFragment` class extends the regular Android Support Fragment. It must always be a child of a FragmentMapActivity, FragmentMapFragment, FragmentStackActivity, or FragmentStackFragment. The SimpleFragment adds three extra convenience methods:
 
-`onShown()`
+```java
+onShown()
+```
 `onShown()` is kind of like `onResume()` but better. It will get called when your SimpleFragment gets added to your stack. It will get called when your SimpleFragment gets shown in your map. It will also get called when you resume the fragment from the background.
 
-`onHidden()`
+```java
+onHidden()
+```
 `onHidden()` is kind of like `onPause()` but better. It will get called when your SimpleFragment gets removed from your stack. It will get called when your SimpleFragment gets hidden from your map (you show a different Fragment). It will also get called when you background the app.
 
-`onSimpleBackPressed()`
+```java
+onSimpleBackPressed()
+```
 `onSimpleBackPressed()` is very simple. It gets called when you press the back key. It returns a boolean. Return true if the press was handled, false if it wasn't. If you return false, the back press will be propagated to the SimpleFragments parent (whatever that may be).
 
 The beauty here is `FragmentMapFragment` and `FragmentStackFragment` extend from `SimpleFragment` themselves. This means you can add FragmentMapFragments and FragmentStackFragments to a `FragmentMapActivity`, a `FragmentStackActivity`, or even a different `FragmentMapFragment` or a different `FragmentStackFragment` - just like you would any other SimpleFragment. You can have stacks within a map. You can have a map inside of a stack. You can have a stack inside a map inside a stack inside a map if you really want to. You don't have to get too complicated with it, but it's very flexible.
 
 ### Rotation
 Not only are back presses handled for you, but rotation is as well. These are just Fragments after all. When you rotate, the state of your fragments will be saved. You can also pass things to the outstate in `onSaveInstanceState()` and retrieve them in `onCreate()` just like you would any other Fragment.
+
+# Samples
+There are two sample apps included here: `samplemapapp` is an example of an app with a map of fragment stacks. `samplestackapp` is an example of an app with a stack of fragments where one of the fragments is a map.
