@@ -5,17 +5,17 @@ SimpleFragments is a library aimed at making flexible navigation easy on Android
 Add JitPack repo in your root build.gradle at the end of repositories:
 ```java
 allprojects {
-		repositories {
-			...
-			maven { url "https://jitpack.io" }
-		}
+	repositories {
+		...
+		maven { url "https://jitpack.io" }
 	}
+}
 ```
 Add the dependency:
 ```java
 dependencies {
-	        compile 'com.github.JayyyR:SimpleFragments:v0.1-alpha'
-	}
+	compile 'com.github.JayyyR:SimpleFragments:v0.1-alpha'
+}
 ```
 
 # Usage
