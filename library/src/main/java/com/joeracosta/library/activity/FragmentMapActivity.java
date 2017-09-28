@@ -1,11 +1,11 @@
 package com.joeracosta.library.activity;
 
-import android.arch.lifecycle.LifecycleActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Joe on 8/14/2017.
@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentTransaction;
  * It will be sent to this activity. You shouldn't inflate a layout here inside the fragment container that is meant to be visible
  * to the user.
  */
-public abstract class FragmentMapActivity extends LifecycleActivity {
+public abstract class FragmentMapActivity extends AppCompatActivity {
 
     private static final String CURRENT_FRAG_TAG = "com.joeracosta.current_frag_tag_activity_map";
 

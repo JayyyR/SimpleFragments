@@ -1,10 +1,10 @@
 package com.joeracosta.library.activity;
 
-import android.arch.lifecycle.LifecycleActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.Stack;
 
@@ -14,7 +14,7 @@ import java.util.Stack;
  * and you press back, instead of being popped, this activity will get the back press. So you shouldn't inflate a layout here inside the fragment container that is meant to be visible
  * to the user. There should always be at least one SimpleFragment in the stack.
  */
-public abstract class FragmentStackActivity extends LifecycleActivity {
+public abstract class FragmentStackActivity extends AppCompatActivity {
 
     private static final String BACKSTAG_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_activity";
 
