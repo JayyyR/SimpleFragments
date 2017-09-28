@@ -7,9 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
- * Created by Joe on 9/8/2017.
+ * Created by Joe on 8/14/2017.
+ * Meant to be a shell map fragment that has a map of SimpleFragments. Back presses etc are handled for you.
+ * The back presses will be sent to the SimpleFragment thats currently shown in the map and handled there. If it's not handled
+ * It will be sent to this activity. You shouldn't inflate a layout here inside the fragment container that is meant to be visible
+ * to the user.
  */
-
 public abstract class FragmentMapFragment extends SimpleFragment {
 
     private static final String CURRENT_FRAG_TAG = "com.joeracosta.current_frag_tag_fragment_map";

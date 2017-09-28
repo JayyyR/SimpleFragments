@@ -29,6 +29,6 @@ task clean(type: Delete) {
 }
 
 ext{
-    lifecycleComponentVersion = '1.0.0-alpha8'
+    lifecycleComponentVersion = '1.0.0-beta1'
 }
 

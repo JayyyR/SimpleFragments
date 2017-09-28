@@ -9,6 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 
 /**
  * Created by Joe on 8/14/2017.
+ * Meant to be a shell map activity that has a map of SimpleFragments. Back presses etc are handled for you.
+ * The back presses will be sent to the SimpleFragment thats currently shown in the map and handled there. If it's not handled
+ * It will be sent to this activity. You shouldn't inflate a layout here inside the fragment container that is meant to be visible
+ * to the user.
  */
 public abstract class FragmentMapActivity extends LifecycleActivity {
 

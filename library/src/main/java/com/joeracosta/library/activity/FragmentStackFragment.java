@@ -39,7 +39,13 @@ public abstract class FragmentStackFragment extends SimpleFragment {
         super.onSaveInstanceState(outState);
     }
 
-
+    /**
+     * Add a SimpleFragment to the stack
+     * @param fragmentToAdd New Instance of the Fragment you want
+     * @param fragmentContainerId container Id for the fragment
+     * @param tag
+     * @param backstackTag
+     */
     public void addFragmentToStack(SimpleFragment fragmentToAdd, int fragmentContainerId,
                                       @Nullable String tag, @Nullable String backstackTag){
 
