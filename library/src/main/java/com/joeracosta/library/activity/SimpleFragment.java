@@ -1,15 +1,15 @@
 package com.joeracosta.library.activity;
 
-import android.arch.lifecycle.LifecycleFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by Joe on 8/14/2017.
  * Simple Fragment. Must be used in a FragmentStackFragment/Activity or FragmentMapFragment/Activity
  */
 
-public abstract class SimpleFragment extends LifecycleFragment {
+public abstract class SimpleFragment extends Fragment {
 
     private static final String FOREFRONT_TAG = "com.joeracosta.at_forefront_tag";
 
