@@ -22,7 +22,7 @@ dependencies {
 The library provides 4 main classes for you to utlize: The FragmentMapActivity, the FragmentMapFragment, the FragmentStackActivity, and the FragmentStackFragment. These are all designed to be "shell" components for you to put your fragments into. The fifth class is SimpleFragment. This class extends the Android Fragment and is what needs to be used for all your Fragments in the app. It provides a few convenience methods that will make your life easier.
 
 ## Maps
-Your Activities and your Fragments can both host maps of SimpleFragments. If you want a map inside an Activity, then have your Activity extend FragmentMapActivity. If you want a map inside a Fragment, then have your Fragment extend FragmentMapActivity. 
+Your Activities and your Fragments can both host maps of SimpleFragments. If you want a map inside an Activity, then have your Activity extend FragmentMapActivity. If you want a map inside a Fragment, then have your Fragment extend FragmentMapFragment. 
 
 The main method you need to worry about here is `showFragmentInMap`. `showFragmentInMap` takes in 3 arguments: the SimpleFragment you want to show in the map, the container id in your layout where you want to place your Fragment, and a unique tag for your Fragment. 
 
@@ -50,7 +50,7 @@ There are multiple use cases for using maps including a bottom navigation paradi
 Your FragmentMapActivities and FragmentMapFragments are always meant to be hosting at least one fragment. There should nothing visible to the user inside the fragment container layout. In other words, nothing visible to the user besides top level things like bottom menus/side navigation/toolbars etc.
 
 ## Stacks
-Your Activities and Fragments can both host stacks of SimpleFragments. If you want a stack inside an Activity, then have your Activity extend FramentStackActivity. If you want a stack inside a Fragment, then have your Fragment extend FragmentStackActivity.
+Your Activities and Fragments can both host stacks of SimpleFragments. If you want a stack inside an Activity, then have your Activity extend FramentStackActivity. If you want a stack inside a Fragment, then have your Fragment extend FragmentStackFragment.
 
 The main method you need to worry about here is `addFragmentToStack`. `addFragmentToStack` takes 4 arguments: The SimpleFragment you want to add to the stack, the container id in your layout you want to place your fragent and optional tags for the fragment and the backstack.
 
