@@ -82,6 +82,8 @@ public abstract class FragmentStackActivity extends AppCompatActivity {
             if (!mBackstackTags.isEmpty()) {
                 mFragmentManager.popBackStackImmediate();
                 mCurrentFragment = (SimpleFragment) mFragmentManager.findFragmentByTag(mBackstackTags.peek());
+                mCurrentFragment.setAtForefront(true);
+                mCurrentFragment.onShown();
             } else {
                 finish();
             }

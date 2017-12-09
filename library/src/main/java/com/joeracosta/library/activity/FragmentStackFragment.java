@@ -80,6 +80,8 @@ public abstract class FragmentStackFragment extends SimpleFragment {
             if (!mBackstackTags.isEmpty()) {
                 mChildFragmentManager.popBackStackImmediate();
                 mCurrentFragment = (SimpleFragment) mChildFragmentManager.findFragmentByTag(mBackstackTags.peek());
+                mCurrentFragment.setAtForefront(true);
+                mCurrentFragment.onShown();
                 return true;
             }
         }
