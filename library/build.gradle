@@ -28,9 +28,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
-    compile "android.arch.lifecycle:runtime:$lifecycleComponentVersion"
     compile "android.arch.lifecycle:extensions:$lifecycleComponentVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycleComponentVersion"
 }
 
 // build a jar with source files
