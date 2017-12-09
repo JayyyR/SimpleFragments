@@ -14,7 +14,7 @@ allprojects {
 Add the dependency:
 ```java
 dependencies {
-	compile 'com.github.JayyyR:SimpleFragments:v0.1-alpha'
+	compile 'com.github.JayyyR:SimpleFragments:v0.2-alpha@aar'
 }
 ```
 
@@ -85,7 +85,7 @@ onHidden()
 ```java
 onSimpleBackPressed()
 ```
-`onSimpleBackPressed()` is very simple. It gets called when you press the back key. It returns a boolean. Return true if the press was handled, false if it wasn't. If you return false, the back press will be propagated to the SimpleFragments parent (whatever that may be).
+`onSimpleBackPressed()` is very simple. It gets called when you press the back key. It returns a boolean. Return true if the press was handled, false if it wasn't. If you return false, the back press will be propagated to the SimpleFragment's parent (whatever that may be).
 
 The beauty here is `FragmentMapFragment` and `FragmentStackFragment` extend from `SimpleFragment` themselves. This means you can add FragmentMapFragments and FragmentStackFragments to a `FragmentMapActivity`, a `FragmentStackActivity`, or even a different `FragmentMapFragment` or a different `FragmentStackFragment` - just like you would any other SimpleFragment. You can have stacks within a map. You can have a map inside of a stack. You can have a stack inside a map inside a stack inside a map if you really want to. You don't have to get too complicated with it, but it's very flexible.
 
