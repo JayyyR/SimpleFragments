@@ -14,7 +14,7 @@ allprojects {
 Add the dependency:
 ```java
 dependencies {
-	compile 'com.github.JayyyR:SimpleFragments:v0.2-alpha@aar'
+	compile 'com.github.JayyyR:SimpleFragments:v0.3-alpha@aar'
 }
 ```
 
