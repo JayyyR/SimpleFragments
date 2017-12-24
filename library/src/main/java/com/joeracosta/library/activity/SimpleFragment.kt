@@ -19,7 +19,7 @@ abstract class SimpleFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        atForefront = savedInstanceState?.getBoolean(FOREFRONT_TAG, false) ?: false
+        atForefront = savedInstanceState?.getBoolean(FOREFRONT_TAG, atForefront) ?: atForefront
 
         if (parentFragment != null) {
             if (parentFragment !is FragmentStackFragment && parentFragment !is FragmentMapFragment) {
