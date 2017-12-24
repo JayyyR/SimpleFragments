@@ -1,16 +1,15 @@
 package com.joeracosta.library.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import java.util.*
 
 /**
  * Created by Joe on 8/14/2017.
- * Meant to be a shell stack activity that has a stack of SimpleFragments. Back presses etc are handled for you. If there is only one fragment in this stack,
- * and you press back, instead of being popped, this activity will get the back press. So you shouldn't inflate a layout here inside the fragment container that is meant to be visible
- * to the user. There should always be at least one SimpleFragment in the stack.
+ * Meant to be a shell stack fragment that has a stack of SimpleFragments. Back presses etc are handled for you. If there is only one fragment in this stack,
+ * and you press back, instead of being popped, this fragment's parent will get the back press. So you shouldn't inflate a layout here that needs to be visible to the user.
+ * There should always be at least one SimpleFragment in the stack
  */
-abstract class FragmentStackActivity : AppCompatActivity() {
+abstract class FragmentStackFragment : SimpleFragment() {
 
     protected var mCurrentFragment: SimpleFragment? = null
         private set
@@ -19,11 +18,10 @@ abstract class FragmentStackActivity : AppCompatActivity() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         savedInstanceState?.getSerializable(BACKSTACK_FRAG_TAGS)?.let {
             mBackstackTags = it as Stack<String>
             if (!mBackstackTags.isEmpty()) {
-                mCurrentFragment = supportFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
+                mCurrentFragment = childFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
             }
         }
     }
@@ -57,7 +55,7 @@ abstract class FragmentStackActivity : AppCompatActivity() {
         mCurrentFragment = fragmentToAdd
         mCurrentFragment?.setAtForefront(true)
 
-        val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
+        val fragmentTransaction = childFragmentManager.beginTransaction().apply {
             replace(fragmentContainerId, fragmentToAdd, tagToUse)
             addToBackStack(backstackTag)
         }
@@ -66,13 +64,11 @@ abstract class FragmentStackActivity : AppCompatActivity() {
     }
 
     fun hasFragments(): Boolean {
-        return supportFragmentManager.backStackEntryCount > 0
+        return childFragmentManager.backStackEntryCount > 0
     }
 
-    override fun onBackPressed() {
-       if (!handleBackPress()) {
-           super.onBackPressed()
-       }
+    override fun onSimpleBackPressed(): Boolean {
+        return handleBackPress()
     }
 
     /**
@@ -80,23 +76,37 @@ abstract class FragmentStackActivity : AppCompatActivity() {
      * otherwise pops the top fragment in this stack
      * @return whether or not the back press was consumed by a child fragment
      */
-    protected fun handleBackPress() : Boolean{
+    protected fun handleBackPress() : Boolean {
         if (mCurrentFragment?.onSimpleBackPressed() ?: false) {
-            return true;
+            return true
         }
-        if (supportFragmentManager.backStackEntryCount > 0) {
+        if (childFragmentManager.backStackEntryCount > 0) {
             mBackstackTags.pop()
             if (!mBackstackTags.isEmpty()) {
-                supportFragmentManager.popBackStackImmediate()
-                mCurrentFragment = supportFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
+                childFragmentManager.popBackStackImmediate()
+                mCurrentFragment = childFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
                 mCurrentFragment?.setAtForefront(true)
                 mCurrentFragment?.onShown()
-                return true;
+                return true
             }
         }
-        return false;
+
+        return false
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        mCurrentFragment?.let {
+            if (hidden) {
+                it.setAtForefront(false)
+                it.onHidden()
+            } else {
+                it.setAtForefront(true)
+                it.onShown()
+            }
+        }
     }
 }
 
-
-private const val BACKSTACK_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_activity"
+private const val BACKSTACK_FRAG_TAGS = "com.joeracosta.back_stack_frag_tags_fragment"

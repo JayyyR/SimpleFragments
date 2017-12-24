@@ -67,6 +67,14 @@ abstract class FragmentMapFragment : SimpleFragment() {
     }
 
     override fun onSimpleBackPressed(): Boolean {
+        return handleBackPress()
+    }
+
+    /**
+     * Passes the back press to children fragments so they can consume it if they'd like
+     * @return whether or not the back press was consumed by a child fragment
+     */
+    protected fun handleBackPress() : Boolean{
         return mCurrentFragment?.onSimpleBackPressed() ?: false
     }
 
