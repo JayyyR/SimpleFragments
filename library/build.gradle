@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "0.1-alpha"
@@ -29,6 +30,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
     compile "android.arch.lifecycle:extensions:$lifecycleComponentVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 // build a jar with source files
@@ -62,4 +64,7 @@ android.libraryVariants.all { variant ->
     task.dependsOn variant.javaCompile
     task.from variant.javaCompile.destinationDir
     artifacts.add('archives', task);
+}
+repositories {
+    mavenCentral()
 }
