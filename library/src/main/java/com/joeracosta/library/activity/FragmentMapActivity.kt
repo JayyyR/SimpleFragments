@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity
  */
 abstract class FragmentMapActivity : AppCompatActivity() {
 
-    private var mCurrentFragment: SimpleFragment? = null
+    protected var mCurrentFragment: SimpleFragment? = null
+        private set
+
     private var mCurrentFragmentTag: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
