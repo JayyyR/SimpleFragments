@@ -91,8 +91,10 @@ abstract class FragmentStackActivity : AppCompatActivity() {
                 mCurrentFragment = supportFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
                 mCurrentFragment?.setAtForefront(true)
                 mCurrentFragment?.onShown()
-                return true;
+            } else {
+                finish() //have to call finish to finish the activity when there's one fragment left in the stack
             }
+            return true;
         }
         return false;
     }
