@@ -3,6 +3,7 @@ package com.joeracosta.library.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Joe on 8/14/2017.
@@ -21,7 +22,14 @@ abstract class FragmentStackActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         savedInstanceState?.getSerializable(BACKSTACK_FRAG_TAGS)?.let {
-            mBackstackTags = it as Stack<String>
+
+            if (it is ArrayList<*>) {
+                val arrayOfTags = it as ArrayList<String>
+                for (tag in arrayOfTags){
+                    mBackstackTags.push(tag)
+                }
+            }
+
             if (!mBackstackTags.isEmpty()) {
                 mCurrentFragment = supportFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
             }
@@ -29,7 +37,9 @@ abstract class FragmentStackActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(BACKSTACK_FRAG_TAGS, mBackstackTags)
+        val arrayOfTags = ArrayList<String>() //stacks don't always serialize...lets preemptively put it in an arraylist
+        arrayOfTags.addAll(mBackstackTags)
+        outState.putSerializable(BACKSTACK_FRAG_TAGS, arrayOfTags)
         super.onSaveInstanceState(outState)
     }
 
@@ -82,7 +92,7 @@ abstract class FragmentStackActivity : AppCompatActivity() {
      */
     protected fun handleBackPress() : Boolean{
         if (mCurrentFragment?.onSimpleBackPressed() ?: false) {
-            return true;
+            return true
         }
         if (supportFragmentManager.backStackEntryCount > 0) {
             mBackstackTags.pop()
@@ -94,9 +104,9 @@ abstract class FragmentStackActivity : AppCompatActivity() {
             } else {
                 finish() //have to call finish to finish the activity when there's one fragment left in the stack
             }
-            return true;
+            return true
         }
-        return false;
+        return false
     }
 }
 

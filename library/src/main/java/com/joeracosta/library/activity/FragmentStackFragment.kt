@@ -19,7 +19,12 @@ abstract class FragmentStackFragment : SimpleFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.getSerializable(BACKSTACK_FRAG_TAGS)?.let {
-            mBackstackTags = it as Stack<String>
+            if (it is ArrayList<*>) {
+                val arrayOfTags = it as ArrayList<String>
+                for (tag in arrayOfTags){
+                    mBackstackTags.push(tag)
+                }
+            }
             if (!mBackstackTags.isEmpty()) {
                 mCurrentFragment = childFragmentManager.findFragmentByTag(mBackstackTags.peek()) as SimpleFragment
             }
@@ -27,7 +32,9 @@ abstract class FragmentStackFragment : SimpleFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(BACKSTACK_FRAG_TAGS, mBackstackTags)
+        val arrayOfTags = ArrayList<String>() //stacks don't always serialize...lets preemptively put it in an arraylist
+        arrayOfTags.addAll(mBackstackTags)
+        outState.putSerializable(BACKSTACK_FRAG_TAGS, arrayOfTags)
         super.onSaveInstanceState(outState)
     }
 
